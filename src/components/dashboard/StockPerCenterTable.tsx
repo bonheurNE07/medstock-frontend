@@ -1,0 +1,38 @@
+import React from "react";
+
+interface StockEntry {
+  center_name: string;
+  medicine_name: string;
+  available_stock: number;
+  unit: string;
+}
+
+const StockPerCenterTable: React.FC<{ data: StockEntry[] }> = ({ data }) => {
+  return (
+    <div className="bg-white rounded-xl shadow p-4 overflow-x-auto">
+      <h3 className="text-lg font-semibold mb-2">Stock Disponible par Centre</h3>
+      <table className="min-w-full text-sm text-left">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="p-2">Centre</th>
+            <th className="p-2">Médicament</th>
+            <th className="p-2">Quantité</th>
+            <th className="p-2">Unité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((entry, index) => (
+            <tr key={index} className="border-t">
+              <td className="p-2">{entry.center_name}</td>
+              <td className="p-2">{entry.medicine_name}</td>
+              <td className="p-2">{entry.available_stock}</td>
+              <td className="p-2">{entry.unit}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default StockPerCenterTable;
