@@ -25,9 +25,9 @@ const RecentReceiptsTable: React.FC<{ receipts: Receipt[] }> = ({ receipts }) =>
               key={idx}
               className="border-t border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
-              <td className="p-2 text-gray-700 dark:text-gray-200">{r.center_name}</td>
-              <td className="p-2 text-gray-700 dark:text-gray-200">{r.medicine_name}</td>
-              <td className="p-2 text-gray-700 dark:text-gray-200">{r.unit}</td>
+              <td className="p-2 text-gray-700 dark:text-gray-200">{r.center_name.toLowerCase()}</td>
+              <td className="p-2 text-gray-700 dark:text-gray-200">{r.medicine_name.toLowerCase()}</td>
+              <td className="p-2 text-gray-700 dark:text-gray-200">{r.unit.toLowerCase()}</td>
               <td className="p-2 text-gray-700 dark:text-gray-200">{r.quantity__received}</td>
               <td className="p-2 text-gray-700 dark:text-gray-200">{r.expiration_date}</td>
               <td className="p-2 text-gray-700 dark:text-gray-200">{r.received__date}</td>
