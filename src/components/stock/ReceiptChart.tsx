@@ -61,8 +61,8 @@ const ReceiptChart = ({ receipts }: Props) => {
       datasets: [
         {
           label: groupBy === "medicine"
-            ? "Total Quantity per Medicine"
-            : "Total Quantity per Date",
+          ? "Quantité totale par médicament"
+          : "Quantité totale par date",
           data: values,
           backgroundColor: colors,
           borderColor: colors,
@@ -78,7 +78,20 @@ const ReceiptChart = ({ receipts }: Props) => {
       legend: { position: "top" as const },
       title: {
         display: true,
-        text: `📈 Grouped by ${groupBy === "medicine" ? "Medicine" : "Date"}`
+        text: `📈 Regroupé par ${groupBy === "medicine" ? "médicament" : "date"}`,
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          display: false, 
+        },
+        grid: {
+          display: false, 
+        },
+      },
+      y: {
+        beginAtZero: true,
       }
     }
   };
@@ -92,13 +105,13 @@ const ReceiptChart = ({ receipts }: Props) => {
             onClick={() => setGroupBy("medicine")}
             className={`px-3 py-1 rounded ${groupBy === "medicine" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
           >
-            Group by Medicine
+            Regrouper par médicament
           </button>
           <button
             onClick={() => setGroupBy("date")}
             className={`px-3 py-1 rounded ${groupBy === "date" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
           >
-            Group by Date
+            Regrouper par date
           </button>
         </div>
         <div className="flex space-x-2">

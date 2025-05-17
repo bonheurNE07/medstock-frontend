@@ -31,7 +31,7 @@ const Filters = ({
         value={selectedCenter ?? ""}
         onChange={(e) => onCenterChange(e.target.value ? parseInt(e.target.value) : null)}
       >
-        <option value="">All Centers</option>
+        <option value="">Tous les centres</option>
         {centers.map((center) => (
           <option key={center.id} value={center.id}>
             {center.name}
@@ -41,7 +41,7 @@ const Filters = ({
 
       <input
         type="text"
-        placeholder="Search Medicine"
+        placeholder="Rechercher un médicament"
         value={medicineSearch}
         onChange={(e) => onMedicineSearchChange(e.target.value)}
         className="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white"

@@ -75,7 +75,7 @@ const StockOverviewPage = () => {
 
   return (
     <div className="p-6 space-y-8 dark:bg-gray-800 dark:text-gray-100">
-      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">📦 Stock Overview</h1>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">📦 Vue d'ensemble du stock</h1>
 
       <Filters
         centers={centers}

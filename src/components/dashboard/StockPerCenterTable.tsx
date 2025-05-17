@@ -28,10 +28,10 @@ const StockPerCenterTable: React.FC<{ data: StockEntry[] }> = ({ data }) => {
               key={index}
               className="border-t border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
-              <td className="p-2">{entry.center_name}</td>
-              <td className="p-2">{entry.medicine_name}</td>
+              <td className="p-2">{entry.center_name.toLowerCase()}</td>
+              <td className="p-2">{entry.medicine_name.toLowerCase()}</td>
               <td className="p-2">{entry.available_stock}</td>
-              <td className="p-2">{entry.unit}</td>
+              <td className="p-2">{entry.unit.toLowerCase()}</td>
             </tr>
           ))}
         </tbody>

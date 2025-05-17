@@ -23,8 +23,8 @@ const LowStockAlerts: React.FC<{ alerts: LowStockEntry[] }> = ({ alerts }) => {
             className="flex items-center gap-2 text-sm text-red-700 dark:text-red-400"
           >
             <AlertCircle className="w-5 h-5 text-red-500 dark:text-red-300" />
-            {alert.medicine_name} à {alert.center_name} —{" "}
-            {alert.available_stock} {alert.unit}
+            {alert.medicine_name.toLowerCase()} à {alert.center_name.toLowerCase()} —{" "}
+            {alert.available_stock} {alert.unit.toLowerCase()}
           </li>
         ))}
       </ul>

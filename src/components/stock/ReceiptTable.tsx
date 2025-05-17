@@ -19,7 +19,7 @@ interface Props {
 const ReceiptTable = ({ receipts }: Props) => {
   return (
     <div className="bg-white dark:bg-gray-800 dark:text-white shadow rounded-lg overflow-x-auto mt-8">
-      <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 px-4 pt-4">Medicine Receipts</h2>
+      <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 px-4 pt-4">Médicaments reçu</h2>
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 mt-2">
         <thead className="bg-gray-100 dark:bg-gray-700">
           <tr>
@@ -34,10 +34,10 @@ const ReceiptTable = ({ receipts }: Props) => {
           {receipts.map((item) => (
             <tr key={item.id} className="hover:bg-gray-600">
               <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                {item.center_name}
+                {item.center_name.toLowerCase()}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                {item.medicine_name}
+                {item.medicine_name.toLowerCase()}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-blue-600 dark:text-blue-400">
                 {item.quantity_received}

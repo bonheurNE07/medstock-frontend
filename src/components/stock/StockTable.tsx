@@ -23,10 +23,10 @@ const StockTable = ({ stocks }: Props) => {
           {stocks.map((item) => (
             <tr key={item.id} className="hover:bg-gray-600">
               <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                {item.center_name}
+                {item.center_name.toLowerCase()}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                {item.medicine_name}
+                {item.medicine_name.toLowerCase()}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-green-600 dark:text-green-400">
                 {item.total_quantity}
