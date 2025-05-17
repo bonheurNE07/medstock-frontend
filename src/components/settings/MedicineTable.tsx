@@ -22,8 +22,8 @@ export default function MedicineTable({ medicines }: Props) {
               className="border-t border-gray-600 hover:bg-gray-600"
             >
               <td className="px-4 py-2">{med.id}</td>
-              <td className="px-4 py-2">{med.name}</td>
-              <td className="px-4 py-2">{med.unit}</td>
+              <td className="px-4 py-2">{med.name.toLowerCase()}</td>
+              <td className="px-4 py-2">{med.unit.toLowerCase()}</td>
             </tr>
           ))}
         </tbody>

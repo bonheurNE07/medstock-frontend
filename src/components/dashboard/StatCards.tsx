@@ -50,7 +50,7 @@ const StatCards: React.FC<StatCardsProps> = ({
         {stats.map((stat, index) => (
           <div
             key={index}
-            className={`rounded-2xl p-5 shadow-md ${stat.bg} ${stat.text} transition-all duration-300`}
+            className={`rounded-2xl p-5 shadow-md ${stat.bg} ${stat.text} hover:scale-105 transition-all duration-300`}
           >
             <div className="text-2xl font-extrabold mb-1">{stat.value}</div>
             <div className="text-sm font-medium">{stat.label}</div>
