@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDashboardData } from "../hooks/useDashboardData";
-import { Center, Medicine, Stock, Receipt } from "../types/models";
+import { Center, Medicine, Stock } from "../types/models";
 import { fetchStocks, fetchCenters, fetchMedicines } from "../services/stockService";
 import { fetchReceipts } from "../services/receiptService";
 
