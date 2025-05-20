@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { format } from 'date-fns';
 import { createMedicineReceipt } from '../../services/medicineReceiptService';
 import { fetchCenters, fetchMedicines } from '../../services/stockService';
 import { Center, Medicine } from '../../types';
@@ -9,8 +12,8 @@ interface FormData {
   center: string;
   medicine: string;
   quantity_received: string;
-  exp_date: string;
-  received_date: string;
+  exp_date: Date;
+  received_date: Date;
 }
 
 type OptionType = { value: number; label: string };
@@ -31,8 +34,8 @@ const MedicineReceiptForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      exp_date: new Date().toISOString().split('T')[0],
-      received_date: new Date().toISOString().split('T')[0],
+      exp_date: new Date(),
+      received_date: new Date(),
     },
   });
 
@@ -53,14 +56,14 @@ const MedicineReceiptForm: React.FC = () => {
         center: parseInt(data.center),
         medicine: parseInt(data.medicine),
         quantity_received: parseInt(data.quantity_received),
-        exp_date: data.exp_date,
-        received_date: data.received_date,
+        exp_date: data.exp_date.toISOString().split('T')[0],
+        received_date: data.received_date.toISOString().split('T')[0],
       });
       console.log("medicine reciption creation ...")
       console.log(data);
       setMessage('✅ Entrée enregistrée avec succès.');
       // Keep center, reset other fields
-      resetField('medicine');
+      // resetField('medicine');
       resetField('exp_date');
       resetField('quantity_received');
     } catch (error) {
@@ -171,30 +174,57 @@ const MedicineReceiptForm: React.FC = () => {
       </div>
 
       {/* Date */}
-      <div>
-        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Date d'expiration</label>
-        <input
-          type="date"
-          {...register('exp_date', { required: 'Date requise' })}
-          defaultValue={new Date().toISOString().split('T')[0]}
-          className="w-full border dark:border-gray-600 p-2 rounded text-sm dark:bg-gray-700 dark:text-gray-200"
-        />
-        {errors.exp_date && (
-          <p className="text-red-600 text-sm">{errors.exp_date.message}</p>
-        )}
-      </div>
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:gap-6">
+          {/* Date de réception */}
+          <div className="flex-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">
+              Date de réception
+            </label>
+            <Controller
+              name="received_date"
+              control={control}
+              rules={{ required: 'Date requise' }}
+              defaultValue={new Date()}
+              render={({ field }) => (
+                <DatePicker
+                  selected={field.value}
+                  onChange={field.onChange}
+                  dateFormat="dd/MM/yyyy"
+                  className="w-full border dark:border-gray-600 p-2 rounded text-sm dark:bg-gray-700 dark:text-gray-200"
+                  placeholderText="jj/mm/aaaa"
+                />
+              )}
+            />
+            {errors.received_date && (
+              <p className="text-red-600 text-sm">{errors.received_date.message}</p>
+            )}
+          </div>
 
-      <div>
-        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Date de réception</label>
-        <input
-          type="date"
-          {...register('received_date', { required: 'Date requise' })}
-          className="w-full border dark:border-gray-600 p-2 rounded text-sm dark:bg-gray-700 dark:text-gray-200"
-        />
-        {errors.received_date && (
-          <p className="text-red-600 text-sm">{errors.received_date.message}</p>
-        )}
-      </div>
+          {/* Date d'expiration */}
+          <div className="flex-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">
+              Date d'expiration
+            </label>
+            <Controller
+              name="exp_date"
+              control={control}
+              rules={{ required: 'Date requise' }}
+              defaultValue={new Date()}
+              render={({ field }) => (
+                <DatePicker
+                  selected={field.value}
+                  onChange={field.onChange}
+                  dateFormat="dd/MM/yyyy"
+                  className="w-full border dark:border-gray-600 p-2 rounded text-sm dark:bg-gray-700 dark:text-gray-200"
+                  placeholderText="jj/mm/aaaa"
+                />
+              )}
+            />
+            {errors.exp_date && (
+              <p className="text-red-600 text-sm">{errors.exp_date.message}</p>
+            )}
+          </div>
+        </div>
 
       {/* Submit Button */}
       <div className="flex items-center justify-between">

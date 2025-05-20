@@ -18,8 +18,8 @@ export const fetchCenters = async () => {
 export const fetchMedicines = async () => {
   const res = await API.get("/medicines/");
   console.info("medecines data");
-  console.log(res.data.results);
-  return res.data.results;
+  console.log(res.data);
+  return res.data;
 };
 
 export const createCenter = async (data: { name: string }) => {

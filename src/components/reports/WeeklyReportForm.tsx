@@ -51,9 +51,7 @@ const WeeklyReportForm: React.FC = () => {
         quantity_used: parseInt(data.quantity_used),
       });
       setMessage('✅ Rapport hebdomadaire enregistré avec succès.');
-      resetField('medicine');
-      resetField('week_start');
-      resetField('week_end');
+      {/* resetField('medicine'); */}
       resetField('quantity_used');
     } catch (err) {
       console.error(err);
