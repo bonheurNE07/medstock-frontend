@@ -2,8 +2,8 @@ import axios from "axios";
 import { Stock, Receipt, Center } from "../types/models";
 
 const API = axios.create({
-  // baseURL: "https://medstock-backend-mdts.onrender.com/api",
-  baseURL: "http://127.0.0.1:8000/api", 
+  baseURL: "https://medstock-backend-mdts.onrender.com/api",
+  // baseURL: "http://127.0.0.1:8000/api", 
   headers: {
     "Content-Type": "application/json",
   },
