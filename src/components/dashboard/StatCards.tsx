@@ -20,19 +20,19 @@ const StatCards: React.FC<StatCardsProps> = ({
   const stats = [
     {
       label: "Total Reçu",
-      value: nf.format(totalReceived),
+      value: nf.format(totalReceived ?? 0),
       bg: "bg-blue-500/20 backdrop-blur",
       text: "text-blue-800 dark:text-blue-200",
     },
     {
       label: "Total Médicaments",
-      value: nf.format(totalMedicines),
+      value: nf.format(totalMedicines ?? 0),
       bg: "bg-emerald-500/20 backdrop-blur",
       text: "text-emerald-800 dark:text-emerald-200",
     },
     {
       label: "Stock Restant",
-      value: nf.format(totalRemaining),
+      value: nf.format(totalRemaining ?? 0),
       bg: "bg-yellow-400/20 backdrop-blur",
       text: "text-yellow-800 dark:text-yellow-100",
     },

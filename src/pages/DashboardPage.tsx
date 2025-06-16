@@ -17,7 +17,7 @@ const DashboardPage = () => {
   return (
     <div className="p-4 space-y-6 text-gray-800 dark:text-gray-100">
       <StatCards
-        totalReceived={dashboard.summary.totalReceivedQuantity}
+        totalReceived={dashboard.summary.totalReceivedQuantity ?? 0}
         totalMedicines={dashboard.summary.totalMedicines}
         totalRemaining={dashboard.summary.totalStockQuantity}
         centersCount={dashboard.summary.totalCenters}
