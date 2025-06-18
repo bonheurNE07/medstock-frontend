@@ -6,7 +6,7 @@ interface Props {
 
 export default function MedicineTable({ medicines }: Props) {
   return (
-    <div className="mt-4 border rounded-lg overflow-y-auto max-h-64 bg-gray-800">
+    <div className="mt-4 border rounded-lg overflow-y-auto max-h-80 bg-gray-800">
       <table className="min-w-full text-sm text-left text-gray-200">
         <thead className="bg-gray-700">
           <tr>

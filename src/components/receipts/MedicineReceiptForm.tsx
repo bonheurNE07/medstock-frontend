@@ -176,7 +176,7 @@ const MedicineReceiptForm: React.FC = () => {
       {/* Date */}
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:gap-6">
           {/* Date de réception */}
-          <div className="flex-1">
+          <div className="flex flex-col lg:flex-1">
             <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">
               Date de réception
             </label>
@@ -201,7 +201,7 @@ const MedicineReceiptForm: React.FC = () => {
           </div>
 
           {/* Date d'expiration */}
-          <div className="flex-1">
+          <div className="flex flex-col lg:flex-1">
             <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">
               Date d'expiration
             </label>

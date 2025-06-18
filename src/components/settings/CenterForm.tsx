@@ -20,6 +20,7 @@ export default function CenterForm({ onCreated }: { onCreated: () => void }) {
       onSubmit={handleSubmit}
       className="flex flex-col sm:flex-row gap-3 items-start sm:items-end bg-gray-800 p-4 rounded-lg"
     >
+      <h3 className="sm:p-1 text-base text-gray-800 dark:text-gray-100 mb-2">Nom du Centre</h3>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -31,7 +32,7 @@ export default function CenterForm({ onCreated }: { onCreated: () => void }) {
         className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
         disabled={loading}
       >
-        {loading ? "Ajout..." : "Ajouter Centre"}
+        {loading ? "Ajout..." : "Ajouter Le Centre"}
       </button>
     </form>
   );

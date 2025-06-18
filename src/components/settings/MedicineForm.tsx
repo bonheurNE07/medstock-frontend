@@ -20,18 +20,20 @@ export default function MedicineForm({ onCreated }: { onCreated: () => void }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col sm:flex-row flex-wrap gap-3 bg-gray-800 p-4 rounded-lg"
+      className="flex flex-col lg:flex-row flex-wrap gap-2 bg-gray-800 p-4 rounded-lg"
     >
+      <h3 className="sm:p-1 text-base text-gray-800 dark:text-gray-100 mb-2">Nom du Médicament</h3>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Nom du Médicament"
         className="w-full sm:w-auto flex-1 px-4 py-2 border border-gray-600 rounded-lg bg-gray-700 text-gray-200"
       />
+      <h3 className="sm:p-1 text-base text-gray-800 dark:text-gray-100 mb-2">Forme</h3>
       <input
         value={unit}
         onChange={(e) => setUnit(e.target.value)}
-        placeholder="Unité (e.g., mg)"
+        placeholder="Forme (e.g., Flacon)"
         className="w-full sm:w-auto flex-1 px-4 py-2 border border-gray-600 rounded-lg bg-gray-700 text-gray-200"
       />
       <button
