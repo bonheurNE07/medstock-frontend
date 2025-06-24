@@ -6,7 +6,6 @@ import RecentReceiptsTable from "../components/dashboard/RecentReceiptsTable";
 import LowStockAlerts from "../components/dashboard/LowStockAlerts";
 import TopUsedMedicinesChart from "../components/dashboard/TopUsedMedicinesChart";
 import StockPerCenterTable from "../components/dashboard/StockPerCenterTable";
-import WeeklyReportExportButton from "../components/reports/WeeklyReportExportButton";
 
 const DashboardPage = () => {
   const { data: dashboard, loading } = useDashboardData();
