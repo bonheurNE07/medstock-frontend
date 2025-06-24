@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
@@ -15,8 +14,6 @@ interface FormData {
   exp_date: Date;
   received_date: Date;
 }
-
-type OptionType = { value: number; label: string };
 
 const MedicineReceiptForm: React.FC = () => {
   const [centers, setCenters] = useState<Center[]>([]);
@@ -49,8 +46,6 @@ const MedicineReceiptForm: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     setMessage('');
-    console.log("submission data");
-    console.log(data)
     try {
       await createMedicineReceipt({
         center: parseInt(data.center),
@@ -59,24 +54,15 @@ const MedicineReceiptForm: React.FC = () => {
         exp_date: data.exp_date.toISOString().split('T')[0],
         received_date: data.received_date.toISOString().split('T')[0],
       });
-      console.log("medicine reciption creation ...")
-      console.log(data);
       setMessage('✅ Entrée enregistrée avec succès.');
-      // Keep center, reset other fields
-      // resetField('medicine');
-      resetField('exp_date');
       resetField('quantity_received');
+      resetField('exp_date');
     } catch (error) {
       setMessage('❌ Erreur lors de l’enregistrement.');
     } finally {
       setLoading(false);
     }
   };
-
-  const medicineOptions = medicines.map((med) => ({
-    value: med.id,
-    label: med.name,
-  }));
 
   return (
     <form
@@ -105,54 +91,17 @@ const MedicineReceiptForm: React.FC = () => {
       {/* Medicine Select */}
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Médicament</label>
-        <Controller
-            name="medicine"
-            control={control}
-            rules={{ required: 'Médicament requis' }}
-            render={({ field }) => (
-                <Select<OptionType>
-                options={medicineOptions}
-                isSearchable
-                placeholder="-- Choisir un médicament --"
-                onChange={(selectedOption) => field.onChange(selectedOption?.value)}
-                value={medicineOptions.find((option) => option.value === Number(field.value))}
-                className="text-sm w-full dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
-                styles={{
-                    control: (base) => ({
-                        ...base,
-                        backgroundColor: '#1F2937', // Dark mode background color
-                        color: '#D1D5DB', // Light text color for dark mode
-                        borderColor: '#4B5563', // Border color in dark mode
-                        minHeight: '2.5rem', // Ensures height matches other form controls
-                        }),
-                        singleValue: (base) => ({
-                        ...base,
-                        color: '#D1D5DB', // Ensure the text is colored properly
-                        }),
-                        input: (base) => ({
-                        ...base,
-                        color: '#D1D5DB', // Ensure the input text is also colored
-                        }),
-                        menu: (base) => ({
-                        ...base,
-                        backgroundColor: '#1F2937', // Dark mode background for dropdown
-                        color: '#D1D5DB', // Text color for dropdown options
-                        zIndex: 9999, // Ensure the dropdown appears above other elements if needed
-                        }),
-                        option: (base) => ({
-                        ...base,
-                        backgroundColor: '#1F2937', // Background color for each option
-                        color: '#D1D5DB', // Text color for each option
-                        padding: '0.5rem', // Adjust padding for consistency
-                        '&:hover': {
-                            backgroundColor: '#4B5563', // Hover effect for options
-                            color: '#F3F4F6', // Text color when hovering
-                        }
-                        }),
-                }}
-                />
-            )}
-            />
+        <select
+          {...register('medicine', { required: 'Médicament requis' })}
+          className="w-full border dark:border-gray-600 p-2 rounded text-sm dark:bg-gray-700 dark:text-gray-200"
+        >
+          <option value="">-- Choisir un médicament --</option>
+          {medicines.map((med) => (
+            <option key={med.id} value={med.id}>
+              {med.name}
+            </option>
+          ))}
+        </select>
         {errors.medicine && <p className="text-red-600 text-sm">{errors.medicine.message}</p>}
       </div>
 

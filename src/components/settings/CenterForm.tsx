@@ -8,31 +8,40 @@ export default function CenterForm({ onCreated }: { onCreated: () => void }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
+
     setLoading(true);
-    await createCenter({ name });
-    setName("");
-    setLoading(false);
-    onCreated();
+    try {
+      await createCenter({ name });
+      setName("");
+      onCreated();
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col sm:flex-row gap-3 items-start sm:items-end bg-gray-800 p-4 rounded-lg"
+      className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-end gap-4"
     >
-      <h3 className="sm:p-1 text-base text-gray-800 dark:text-gray-100 mb-2">Nom du Centre</h3>
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Nom du Centre"
-        className="px-4 py-2 border border-gray-600 rounded-lg w-full sm:w-auto bg-gray-700 text-gray-200"
-      />
+      <div className="flex-1">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+          Nom du Centre
+        </label>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Nom du Centre"
+          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
       <button
         type="submit"
-        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
         disabled={loading}
+        className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium disabled:opacity-50 transition-colors"
       >
-        {loading ? "Ajout..." : "Ajouter Le Centre"}
+        {loading ? "Ajout..." : "Ajouter"}
       </button>
     </form>
   );
