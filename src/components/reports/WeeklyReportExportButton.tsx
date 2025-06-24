@@ -43,7 +43,7 @@ export default function WeeklyReportExportButton() {
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow space-y-2">
       <div className="flex flex-col gap-2 lg:gap-8 lg:flex-row lg:items-center ">
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1">
           <h3 className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Date de début</h3>
           <input
             type="date"
@@ -53,7 +53,7 @@ export default function WeeklyReportExportButton() {
           />
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1">
           <h3 className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Date de fin</h3>
           <input
             type="date"

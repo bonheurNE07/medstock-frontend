@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { format } from 'date-fns';
 import { createMedicineReceipt } from '../../services/medicineReceiptService';
 import { fetchCenters, fetchMedicines } from '../../services/stockService';
 import { Center, Medicine } from '../../types';
@@ -26,7 +25,6 @@ const MedicineReceiptForm: React.FC = () => {
     handleSubmit,
     resetField,
     setValue,
-    watch,
     control,
     formState: { errors },
   } = useForm<FormData>({
@@ -36,7 +34,6 @@ const MedicineReceiptForm: React.FC = () => {
     },
   });
 
-  const selectedCenter = watch('center');
 
   useEffect(() => {
     fetchCenters().then(setCenters);

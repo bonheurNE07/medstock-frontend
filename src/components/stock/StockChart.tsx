@@ -9,9 +9,10 @@ import {
   Tooltip,
   Legend,
   Title,
-  PointElement
+  PointElement,
 } from "chart.js";
-import { Receipt } from "./ReceiptTable";
+import { Stock } from "../../types/models";
+import { format } from "date-fns";
 
 ChartJS.register(
   CategoryScale,
@@ -25,7 +26,8 @@ ChartJS.register(
 );
 
 interface Props {
-  receipts: Receipt[];
+  stocks: Stock[];
+  title: string;
 }
 
 type ChartGroupBy = "medicine" | "date";
@@ -38,31 +40,41 @@ const generateColors = (count: number) => {
   return Array.from({ length: count }, (_, i) => palette[i % palette.length]);
 };
 
-const ReceiptChart = ({ receipts }: Props) => {
+const StockChart: React.FC<Props> = ({ stocks, title }) => {
   const [chartType, setChartType] = useState<"bar" | "line">("bar");
   const [groupBy, setGroupBy] = useState<ChartGroupBy>("medicine");
 
   const chartData = useMemo(() => {
     const map: Record<string, number> = {};
 
-    receipts.forEach((r) => {
-      const key = groupBy === "medicine"
-        ? r.medicine_name || "Unknown"
-        : r.received_date || "Unknown";
-      map[key] = (map[key] || 0) + r.quantity_received;
+    stocks.forEach((stock) => {
+      const key =
+        groupBy === "medicine"
+          ? stock.medicine_name || "Inconnu"
+          : format(new Date(stock.last_updated), "dd/MM/yyyy");
+
+      map[key] = (map[key] || 0) + stock.total_quantity;
     });
 
-    const labels = Object.keys(map).sort(); // sort by name or date
+    const labels = Object.keys(map).sort((a, b) =>
+      groupBy === "date"
+        ? new Date(a).getTime() - new Date(b).getTime()
+        : a.localeCompare(b)
+    );
+
     const values = labels.map((label) => map[label]);
     const colors = generateColors(labels.length);
+
+    console.log("Stock items: ", stocks.slice(0, 5));
 
     return {
       labels,
       datasets: [
         {
-          label: groupBy === "medicine"
-          ? "Quantité totale par médicament"
-          : "Quantité totale par date",
+          label:
+            groupBy === "medicine"
+              ? "Quantité totale par médicament"
+              : "Quantité totale par date",
           data: values,
           backgroundColor: colors,
           borderColor: colors,
@@ -70,60 +82,77 @@ const ReceiptChart = ({ receipts }: Props) => {
         },
       ],
     };
-  }, [receipts, groupBy]);
+  }, [stocks, groupBy]);
 
   const chartOptions = {
     responsive: true,
     plugins: {
-      legend: { position: "top" as const },
+      legend: {
+        position: "top" as const,
+        labels: {
+          font: { size: 10 },
+        },
+      },
       title: {
         display: true,
         text: `📈 Regroupé par ${groupBy === "medicine" ? "médicament" : "date"}`,
-      }
+        font: { size: 12 },
+      },
+      tooltip: {
+        bodyFont: { size: 10 },
+        titleFont: { size: 11 },
+      },
     },
     scales: {
       x: {
-        ticks: {
-          display: false, 
-        },
-        grid: {
-          display: false, 
-        },
+        ticks: { font: { size: 10 } },
+        grid: { display: false },
       },
       y: {
         beginAtZero: true,
-      }
-    }
+        ticks: { font: { size: 10 } },
+      },
+    },
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 dark:text-white shadow rounded-lg p-4 mt-6">
       <div className="flex flex-wrap justify-between items-center mb-4 gap-2">
-        <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">📊 Receipt Chart</h2>
+        <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">{title}</h2>
+
         <div className="flex space-x-2">
           <button
             onClick={() => setGroupBy("medicine")}
-            className={`px-3 py-1 rounded ${groupBy === "medicine" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
+            className={`px-3 py-1 rounded ${groupBy === "medicine"
+              ? "bg-green-600 text-white"
+              : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
           >
             Regrouper par médicament
           </button>
           <button
             onClick={() => setGroupBy("date")}
-            className={`px-3 py-1 rounded ${groupBy === "date" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
+            className={`px-3 py-1 rounded ${groupBy === "date"
+              ? "bg-green-600 text-white"
+              : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
           >
             Regrouper par date
           </button>
         </div>
+
         <div className="flex space-x-2">
           <button
             onClick={() => setChartType("bar")}
-            className={`px-3 py-1 rounded ${chartType === "bar" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
+            className={`px-3 py-1 rounded ${chartType === "bar"
+              ? "bg-blue-500 text-white"
+              : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
           >
             Bar
           </button>
           <button
             onClick={() => setChartType("line")}
-            className={`px-3 py-1 rounded ${chartType === "line" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
+            className={`px-3 py-1 rounded ${chartType === "line"
+              ? "bg-blue-500 text-white"
+              : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white"}`}
           >
             Line
           </button>
@@ -139,4 +168,4 @@ const ReceiptChart = ({ receipts }: Props) => {
   );
 };
 
-export default ReceiptChart;
+export default StockChart;

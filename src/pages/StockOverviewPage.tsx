@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDashboardData } from "../hooks/useDashboardData";
-import { Center, Medicine, Stock } from "../types/models";
-import { fetchStocks, fetchCenters, fetchMedicines } from "../services/stockService";
+import { Center, Stock } from "../types/models";
+import { fetchStocks, fetchCenters } from "../services/stockService";
 import { fetchReceipts } from "../services/receiptService";
 
 import Filters from "../components/stock/Filters";
 import StockTable from "../components/stock/StockTable";
-import ReceiptTable from "../components/stock/ReceiptTable";
-import ReceiptChart from "../components/stock/ReceiptChart";
 import LowStockAlerts from "../components/dashboard/LowStockAlerts";
+import StockChart from "../components/stock/StockChart";
 
 const StockOverviewPage = () => {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [receipts, setReceipts] = useState([]);
   const [centers, setCenters] = useState<Center[]>([]);
-  const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [selectedCenter, setSelectedCenter] = useState<number | null>(null);
   const [medicineSearch, setMedicineSearch] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
@@ -32,7 +30,6 @@ const StockOverviewPage = () => {
 
   useEffect(() => {
     fetchCenters().then(res => setCenters(res));
-    fetchMedicines().then(res => setMedicines(res.data));
   }, []);
 
   useEffect(() => {
@@ -110,25 +107,8 @@ const StockOverviewPage = () => {
       {!loading && dashboard?.alerts?.lowStock?.length > 0 && (
         <LowStockAlerts alerts={dashboard.alerts.lowStock} />
       )}
-      <ReceiptTable receipts={receipts} />
-      <div className="flex justify-center gap-4 mt-4">
-        <button
-          onClick={() => receiptPrev && setReceiptPage(receiptPrev)}
-          disabled={!receiptPrev}
-          className="px-4 py-2 bg-gray-600 rounded text-white disabled:opacity-40"
-        >
-          Previous Receipt
-        </button>
-        <button
-          onClick={() => receiptNext && setReceiptPage(receiptNext)}
-          disabled={!receiptNext}
-          className="px-4 py-2 bg-[#0699A2] rounded text-white disabled:opacity-40"
-        >
-          Next Receipt
-        </button>
-      </div>
       <div className="mt-8">
-        <ReceiptChart receipts={receipts} />
+        <StockChart title={"📦 Graphique du stock"} stocks={stocks} />
       </div>
     </div>
   );

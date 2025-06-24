@@ -24,14 +24,6 @@ const DashboardPage = () => {
         lastReceiptDate={dashboard.summary.lastReceiptDate}
       />
 
-      {/* Export Section */}
-      <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
-          Exporter le Rapport Hebdomadaire
-        </h2>
-        <WeeklyReportExportButton />
-      </section>
-
       {/* Alerts */}
       <LowStockAlerts alerts={dashboard.alerts.lowStock} />
 

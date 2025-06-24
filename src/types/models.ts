@@ -20,6 +20,7 @@ export interface Stock {
   last_updated: string;
 }
 
+
 export interface Receipt {
   id: number;
   center_name: string;
