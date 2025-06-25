@@ -38,6 +38,9 @@ export default function StockInsertionPage() {
       receiptParams.medicine_name = medicineSearch;
     }
 
+    if (startDate) receiptParams.start_date = startDate;
+    if (endDate) receiptParams.end_date = endDate;
+
     fetchReceipts(receiptParams).then(res => {
       setReceipts(res.results);
       setReceiptNext(res.next ? receiptPage + 1 : null);

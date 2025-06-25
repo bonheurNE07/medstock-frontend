@@ -12,7 +12,7 @@ const Navbar = () => {
   }, [open]);
 
   return (
-    <nav className="bg-white border-b border-gray-200 fixed top-0 z-50 w-full dark:bg-gray-900 dark:border-gray-700">
+    <nav className="backdrop-blur-md bg-white/30 border-b border-gray-200 fixed top-0 z-50 w-full dark:bg-gray-900/30 dark:border-gray-700">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo Section */}
         <Link to="/" className="flex items-center space-x-2">
@@ -66,7 +66,7 @@ const Navbar = () => {
             <NavLink
               key={path}
               to={path}
-              onClick={() => setOpen(false)} // close on click (mobile)
+              onClick={() => setOpen(false)}
               className={({ isActive }) =>
                 `block px-3 py-2 rounded-md text-sm font-medium transition ${
                   isActive
