@@ -1,18 +1,26 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate} from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useState, useEffect } from "react";
 import { navLinks } from "../../constants/navLinks";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const { isAuthenticated } = useAuth()
 
   // Lock scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
   }, [open]);
 
+  const handleLogin = () => {
+    navigate('/login')
+  }
+
   return (
-    <nav className="backdrop-blur-md bg-white/30 border-b border-gray-200 fixed top-0 z-50 w-full dark:bg-gray-900/30 dark:border-gray-700">
+    <nav className="fixed top-0 z-50 w-full backdrop-blur-md bg-white/30 dark:bg-[#202124]/30 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo Section */}
         <Link to="/" className="flex items-center space-x-2">
@@ -72,16 +80,22 @@ const Navbar = () => {
                   isActive
                     ? "text-white bg-blue-700"
                     : "text-gray-700 hover:text-blue-700 dark:text-white dark:hover:text-blue-400"
-                }`
+                }`  
               }
             >
               {label}
             </NavLink>
           ))}
 
-          <button className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm font-medium">
+          {isAuthenticated ? (
+            <button className="bg-gray-800 text-white text-red-600 hover:text-red-500 px-4 py-2 rounded text-sm font-medium"
+            onClick={logout}>
+            Logout
+            </button>) : (
+            <button className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm font-medium"
+              onClick={handleLogin}>
             Login
-          </button>
+          </button>)}
         </div>
       </div>
     </nav>

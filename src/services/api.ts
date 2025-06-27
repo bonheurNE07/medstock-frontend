@@ -6,9 +6,19 @@ const API = axios.create({
   baseURL: "https://medstock-backend-1-32pj.onrender.com/api", 
   // baseURL : "https://891a-2c0f-eb68-6b7-1f00-2946-9fc2-a6b7-51ef.ngrok-free.app/api",
   // baseURL : "http://100.86.174.80:8000/api",
+  // baseURL: 'http://localhost:8000/api',
   headers: {
     "Content-Type": "application/json",
   },
+});
+
+// Add JWT token automatically if available
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 // Fetch all centers

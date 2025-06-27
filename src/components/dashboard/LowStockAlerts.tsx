@@ -12,7 +12,7 @@ const LowStockAlerts: React.FC<{ alerts: LowStockEntry[] }> = ({ alerts }) => {
   if (alerts.length === 0) return null;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+    <div className="bg-white dark:bg-[#181818]/40 rounded-xl shadow p-4">
       <h3 className="text-lg font-semibold mb-2 text-red-600 dark:text-red-300">
         Alertes de Stock Faible
       </h3>

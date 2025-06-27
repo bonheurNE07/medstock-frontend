@@ -4,7 +4,7 @@ import { navLinks } from "../../constants/navLinks";
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-900 shadow-sm border-t mt-12">
+    <footer className="bg-white dark:bg-[#212121] shadow-sm border-t mt-12 transition-all duration-300">
       <div className="max-w-screen-xl mx-auto px-4 py-6 sm:flex sm:items-center sm:justify-between">
         <Link to="/" className="flex items-center space-x-3">
           <img src={logo} className="h-8" alt="Upemba Logo" />

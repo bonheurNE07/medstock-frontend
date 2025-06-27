@@ -59,12 +59,12 @@ const WeeklyCenterChart: React.FC<WeeklyCenterChartProps> = ({ centerName, data 
   const gridColor = isDarkMode ? "#4B5563" : "#D1D5DB";  // gray-600 vs gray-300
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
-      <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100 whitespace-nowrap">
+    <div className="bg-white dark:bg-[#181818]/40 rounded-xl shadow p-4">
+      <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200 whitespace-nowrap">
         {`Consommation Hebdo - ${centerName}`}
       </h3>
       <div className="overflow-x-auto">
-        <div className="min-w-[600px] sm:min-w-[700px] md:min-w-[900px] lg:min-w-[1100px] h-[300px] md:h-[300px]">
+        <div className="min-w-[600px] sm:min-w-[700px] md:min-w-[900px] lg:min-w-[1100px] h-[200px] md:h-[300px]">
           <Line
             data={{ labels: periods, datasets }}
             options={{
@@ -75,8 +75,8 @@ const WeeklyCenterChart: React.FC<WeeklyCenterChartProps> = ({ centerName, data 
                   display: true,
                   position: "bottom",
                   labels: {
-                    boxWidth: 12,
-                    font: { size: 12 },
+                    boxWidth: 10,
+                    font: { size: 10 },
                     color: tickColor,
                   },
                 },
@@ -91,7 +91,7 @@ const WeeklyCenterChart: React.FC<WeeklyCenterChartProps> = ({ centerName, data 
                 },
               },
               layout: {
-                padding: { top: 10, bottom: 10 },
+                padding: { top: 5, bottom: 5 },
               },
               scales: {
                 x: {
